@@ -1,0 +1,1603 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carole Lymer — PM IA & Data</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --lime: #BEFF5A;
+  --lime-dark: #8BC42A;
+  --dark: #0F0F12;
+  --dark-card: #18181E;
+  --dark-card-hover: #1F1F28;
+  --gray: #9B9BAD;
+  --gray-light: #CDCDD8;
+  --white: #F5F5F7;
+  --purple: #8B5CF6;
+  --purple-dim: rgba(139, 92, 246, 0.15);
+  --coral: #FF6B6B;
+  --blue: #38BDF8;
+  --gradient-lime: linear-gradient(135deg, #BEFF5A 0%, #8BC42A 100%);
+  --gradient-hero: linear-gradient(160deg, #0F0F12 0%, #1a1a2e 50%, #16213e 100%);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Instrument Sans', sans-serif;
+  background: var(--dark);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── GRAIN OVERLAY ─── */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  z-index: 100;
+  padding: 20px 48px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  backdrop-filter: blur(20px);
+  background: rgba(15,15,18,0.7);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+nav .logo {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.3rem;
+  color: var(--white);
+  text-decoration: none;
+}
+
+nav .logo span { color: var(--lime); }
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 32px;
+}
+
+nav ul a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.88rem;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+  transition: color 0.3s;
+}
+
+nav ul a:hover { color: var(--lime); }
+
+.nav-cta {
+  background: var(--gradient-lime);
+  color: var(--dark) !important;
+  padding: 10px 24px;
+  border-radius: 100px;
+  font-weight: 600 !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.nav-cta:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(190,255,90,0.25);
+}
+
+/* ─── HERO ─── */
+.hero {
+  min-height: 100vh;
+  background: var(--gradient-hero);
+  display: flex;
+  align-items: center;
+  padding: 120px 48px 80px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -200px; right: -200px;
+  width: 700px; height: 700px;
+  background: radial-gradient(circle, rgba(190,255,90,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  bottom: -150px; left: -100px;
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, rgba(139,92,246,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.hero-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+
+.hero-text h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 4rem;
+  line-height: 1.08;
+  margin-bottom: 12px;
+  animation: fadeUp 0.8s ease-out;
+}
+
+.hero-text h1 .accent {
+  background: var(--gradient-lime);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-subtitle {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.85rem;
+  color: var(--lime);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  animation: fadeUp 0.8s ease-out 0.1s both;
+}
+
+.hero-text p {
+  font-size: 1.15rem;
+  color: var(--gray-light);
+  line-height: 1.7;
+  max-width: 500px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.8s ease-out 0.2s both;
+}
+
+.hero-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 40px;
+  animation: fadeUp 0.8s ease-out 0.3s both;
+}
+
+.hero-tag {
+  padding: 8px 18px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  font-size: 0.82rem;
+  color: var(--gray-light);
+  background: rgba(255,255,255,0.03);
+  backdrop-filter: blur(10px);
+}
+
+.hero-tag.highlight {
+  border-color: var(--lime);
+  color: var(--lime);
+  background: rgba(190,255,90,0.06);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 48px;
+  animation: fadeUp 0.8s ease-out 0.4s both;
+}
+
+.stat h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.4rem;
+  color: var(--lime);
+}
+
+.stat p {
+  font-size: 0.82rem;
+  color: var(--gray);
+  margin-top: 4px;
+}
+
+.hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: fadeUp 0.8s ease-out 0.3s both;
+}
+
+.profile-card {
+  width: 380px;
+  background: var(--dark-card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+  padding: 40px 32px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 4px;
+  background: var(--gradient-lime);
+}
+
+.profile-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--lime) 0%, var(--purple) 100%);
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
+  color: var(--dark);
+  position: relative;
+}
+
+.profile-avatar::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(190,255,90,0.3);
+}
+
+.profile-card h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.4rem;
+  margin-bottom: 6px;
+}
+
+.profile-card .role {
+  color: var(--lime);
+  font-size: 0.88rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.profile-links {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.profile-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  font-size: 0.85rem;
+  color: var(--gray-light);
+  transition: all 0.3s;
+}
+
+.profile-link:hover {
+  border-color: var(--lime);
+  background: rgba(190,255,90,0.04);
+}
+
+.profile-link .icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(190,255,90,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.9rem;
+}
+
+/* ─── SECTIONS COMMON ─── */
+section {
+  padding: 100px 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.section-label {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--lime);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 16px;
+}
+
+.section-title {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
+  margin-bottom: 20px;
+  line-height: 1.15;
+}
+
+.section-desc {
+  color: var(--gray);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  max-width: 600px;
+  margin-bottom: 60px;
+}
+
+/* ─── APPROACH / METHODOLOGY ─── */
+.approach-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 2px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.approach-step {
+  background: var(--dark-card);
+  padding: 36px 24px;
+  text-align: center;
+  position: relative;
+  transition: background 0.3s;
+}
+
+.approach-step:hover {
+  background: var(--dark-card-hover);
+}
+
+.step-number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
+  color: rgba(190,255,90,0.15);
+  margin-bottom: 12px;
+}
+
+.approach-step h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 10px;
+  color: var(--white);
+}
+
+.approach-step p {
+  font-size: 0.8rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+.approach-step .arrow {
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--lime);
+  font-size: 1rem;
+  z-index: 2;
+}
+
+/* ─── CASE STUDIES ─── */
+.cases-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.case-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: var(--dark-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  overflow: hidden;
+  transition: all 0.4s;
+}
+
+.case-card:hover {
+  border-color: rgba(190,255,90,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.case-visual {
+  padding: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.case-visual-1 {
+  background: linear-gradient(135deg, #0054A4 0%, #003366 100%);
+}
+
+.case-visual-2 {
+  background: linear-gradient(135deg, #2D6B3F 0%, #1B4D2E 100%);
+}
+
+.case-visual-3 {
+  background: linear-gradient(135deg, #E63946 0%, #9B1D25 100%);
+}
+
+.case-mockup {
+  width: 100%;
+  max-width: 360px;
+  position: relative;
+}
+
+.mockup-browser {
+  background: rgba(0,0,0,0.4);
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.mockup-bar {
+  padding: 10px 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(0,0,0,0.3);
+}
+
+.mockup-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.15);
+}
+
+.mockup-dot:first-child { background: #FF5F57; }
+.mockup-dot:nth-child(2) { background: #FFBD2E; }
+.mockup-dot:nth-child(3) { background: #28C840; }
+
+.mockup-content {
+  padding: 20px;
+  min-height: 180px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mockup-line {
+  height: 8px;
+  border-radius: 4px;
+  background: rgba(255,255,255,0.08);
+}
+
+.mockup-line.short { width: 60%; }
+.mockup-line.medium { width: 80%; }
+.mockup-line.accent { background: rgba(190,255,90,0.3); width: 40%; }
+
+.mockup-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 6px;
+  height: 60px;
+  margin-top: 8px;
+}
+
+.chart-bar {
+  flex: 1;
+  border-radius: 3px 3px 0 0;
+  background: rgba(190,255,90,0.25);
+  transition: height 0.3s;
+}
+
+.mockup-chat {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chat-bubble {
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 0.7rem;
+  max-width: 85%;
+}
+
+.chat-user {
+  background: rgba(190,255,90,0.15);
+  color: var(--lime);
+  align-self: flex-end;
+  border-bottom-right-radius: 4px;
+}
+
+.chat-ai {
+  background: rgba(255,255,255,0.08);
+  color: var(--gray-light);
+  align-self: flex-start;
+  border-bottom-left-radius: 4px;
+}
+
+.case-info {
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.case-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 100px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin-bottom: 16px;
+  width: fit-content;
+}
+
+.tag-blue {
+  background: rgba(56,189,248,0.12);
+  color: var(--blue);
+}
+
+.tag-green {
+  background: rgba(190,255,90,0.12);
+  color: var(--lime);
+}
+
+.tag-coral {
+  background: rgba(255,107,107,0.12);
+  color: var(--coral);
+}
+
+.case-info h3 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.7rem;
+  margin-bottom: 8px;
+  line-height: 1.25;
+}
+
+.case-client {
+  color: var(--gray);
+  font-size: 0.88rem;
+  margin-bottom: 20px;
+  font-weight: 500;
+}
+
+.case-context {
+  color: var(--gray-light);
+  font-size: 0.92rem;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.case-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 28px;
+}
+
+.case-step-item {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.case-step-icon {
+  width: 24px;
+  height: 24px;
+  min-width: 24px;
+  border-radius: 6px;
+  background: rgba(190,255,90,0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  color: var(--lime);
+  margin-top: 2px;
+}
+
+.case-step-item p {
+  font-size: 0.85rem;
+  color: var(--gray-light);
+  line-height: 1.5;
+}
+
+.case-results {
+  display: flex;
+  gap: 24px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.case-result {
+  text-align: center;
+}
+
+.case-result h4 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.6rem;
+  color: var(--lime);
+}
+
+.case-result p {
+  font-size: 0.75rem;
+  color: var(--gray);
+  margin-top: 2px;
+}
+
+/* ─── SKILLS ─── */
+.skills-section {
+  background: var(--dark-card);
+  border-radius: 24px;
+  padding: 60px;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+}
+
+.skill-category h4 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skill-category h4 .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.dot-lime { background: var(--lime); }
+.dot-purple { background: var(--purple); }
+.dot-blue { background: var(--blue); }
+
+.skill-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skill-pill {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  color: var(--gray-light);
+  transition: all 0.3s;
+}
+
+.skill-pill:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+  background: rgba(190,255,90,0.05);
+}
+
+/* ─── CREDENTIALS ─── */
+.cred-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.cred-card {
+  background: var(--dark-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px;
+  transition: all 0.3s;
+}
+
+.cred-card:hover {
+  border-color: rgba(190,255,90,0.15);
+  transform: translateY(-2px);
+}
+
+.cred-card .emoji {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+}
+
+.cred-card h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.cred-card p {
+  font-size: 0.88rem;
+  color: var(--gray);
+  line-height: 1.6;
+}
+
+.cred-card .year {
+  display: inline-block;
+  margin-top: 12px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--lime);
+  opacity: 0.7;
+}
+
+/* ─── TRUST / LOGOS ─── */
+.trust-section {
+  text-align: center;
+}
+
+.trust-logos {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 40px;
+  margin-bottom: 60px;
+}
+
+.trust-logo {
+  padding: 20px 32px;
+  background: var(--dark-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 12px;
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.1rem;
+  color: var(--gray);
+  transition: all 0.3s;
+}
+
+.trust-logo:hover {
+  border-color: rgba(190,255,90,0.2);
+  color: var(--white);
+}
+
+/* ─── TESTIMONIALS ─── */
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+
+.testimonial {
+  background: var(--dark-card);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  padding: 32px;
+  position: relative;
+}
+
+.testimonial::before {
+  content: '"';
+  font-family: 'DM Serif Display', serif;
+  font-size: 4rem;
+  color: var(--lime);
+  opacity: 0.2;
+  position: absolute;
+  top: 12px;
+  left: 24px;
+}
+
+.testimonial blockquote {
+  font-size: 0.95rem;
+  color: var(--gray-light);
+  line-height: 1.7;
+  font-style: italic;
+  margin-bottom: 20px;
+  position: relative;
+  z-index: 1;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--blue));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.testimonial-name {
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.testimonial-role {
+  font-size: 0.78rem;
+  color: var(--gray);
+}
+
+/* ─── FORMATION ─── */
+.formation-timeline {
+  position: relative;
+  padding-left: 32px;
+}
+
+.formation-timeline::before {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: rgba(255,255,255,0.06);
+}
+
+.formation-item {
+  position: relative;
+  padding-bottom: 32px;
+}
+
+.formation-item::before {
+  content: '';
+  position: absolute;
+  left: -29px;
+  top: 8px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--dark);
+  border: 2px solid var(--lime);
+}
+
+.formation-item .f-year {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--lime);
+  margin-bottom: 6px;
+}
+
+.formation-item h4 {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.formation-item .f-school {
+  font-size: 0.88rem;
+  color: var(--gray);
+}
+
+/* ─── CTA ─── */
+.cta-section {
+  text-align: center;
+  padding: 100px 48px;
+  position: relative;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translateX(-50%);
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(190,255,90,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.cta-box {
+  max-width: 700px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+.cta-box h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+.cta-box p {
+  color: var(--gray);
+  font-size: 1.05rem;
+  line-height: 1.7;
+  margin-bottom: 40px;
+}
+
+.cta-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: var(--gradient-lime);
+  color: var(--dark);
+  border: none;
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px rgba(190,255,90,0.25);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 36px;
+  background: transparent;
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 100px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+  border-color: var(--lime);
+  color: var(--lime);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 40px 48px;
+  border-top: 1px solid rgba(255,255,255,0.05);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+footer p {
+  font-size: 0.82rem;
+  color: var(--gray);
+}
+
+footer .social-links {
+  display: flex;
+  gap: 20px;
+}
+
+footer .social-links a {
+  color: var(--gray);
+  text-decoration: none;
+  font-size: 0.85rem;
+  transition: color 0.3s;
+}
+
+footer .social-links a:hover {
+  color: var(--lime);
+}
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 1024px) {
+  .hero-content { grid-template-columns: 1fr; gap: 40px; }
+  .hero-visual { order: -1; }
+  .profile-card { width: 100%; max-width: 380px; }
+  .hero-text h1 { font-size: 3rem; }
+  .approach-grid { grid-template-columns: repeat(3, 1fr); }
+  .approach-step:nth-child(4),
+  .approach-step:nth-child(5) { grid-column: span 1; }
+  .case-card { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 768px) {
+  nav { padding: 16px 24px; }
+  nav ul { display: none; }
+  section, .hero { padding-left: 24px; padding-right: 24px; }
+  .hero-text h1 { font-size: 2.4rem; }
+  .hero-stats { gap: 24px; }
+  .section-title { font-size: 2rem; }
+  .approach-grid { grid-template-columns: 1fr; }
+  .skills-grid { grid-template-columns: 1fr; }
+  .cred-grid { grid-template-columns: 1fr; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .skills-section { padding: 32px 24px; }
+  .case-info { padding: 32px 24px; }
+  .case-visual { padding: 32px 24px; }
+  .cta-buttons { flex-direction: column; align-items: center; }
+  footer { flex-direction: column; gap: 16px; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- ─── NAV ─── -->
+<nav>
+  <a href="#" class="logo">carole<span>.</span>lymer</a>
+  <ul>
+    <li><a href="#methode">Méthode</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#competences">Compétences</a></li>
+    <li><a href="#parcours">Parcours</a></li>
+    <li><a href="#contact" class="nav-cta">Me contacter</a></li>
+  </ul>
+</nav>
+
+<!-- ─── HERO ─── -->
+<div class="hero">
+  <div class="hero-content">
+    <div class="hero-text">
+      <p class="hero-subtitle">Product Manager IA & Data</p>
+      <h1>Je transforme les besoins métiers en <span class="accent">solutions IA</span> adoptées par les équipes.</h1>
+      <p>Ex-entrepreneure, aujourd'hui PM IA & Data : je conçois des produits data & IA en alignant technique, besoins métiers et stratégie — de la discovery à l'adoption.</p>
+      <div class="hero-tags">
+        <span class="hero-tag highlight">LLM / RAG / Agents IA</span>
+        <span class="hero-tag">UX Research</span>
+        <span class="hero-tag">Data Storytelling</span>
+        <span class="hero-tag highlight">Conduite du changement</span>
+        <span class="hero-tag">Product Strategy</span>
+      </div>
+      <div class="hero-stats">
+        <div class="stat">
+          <h3>10+</h3>
+          <p>ans d'expérience</p>
+        </div>
+        <div class="stat">
+          <h3>30+</h3>
+          <p>startups accompagnées</p>
+        </div>
+        <div class="stat">
+          <h3>10K+</h3>
+          <p>clients (MCV)</p>
+        </div>
+      </div>
+    </div>
+    <div class="hero-visual">
+      <div class="profile-card">
+        <div class="profile-avatar">CL</div>
+        <h3>Carole Lymer</h3>
+        <p class="role">PM IA & Data · Freelance</p>
+        <div class="profile-links">
+          <div class="profile-link">
+            <div class="icon">📍</div>
+            Grenoble, France
+          </div>
+          <div class="profile-link">
+            <div class="icon">🏔️</div>
+            1ère présidente French Tech Grenoble
+          </div>
+          <div class="profile-link">
+            <div class="icon">📖</div>
+            Auteure — <em>Le zéro-déchet</em>
+          </div>
+          <div class="profile-link">
+            <div class="icon">🎓</div>
+            Mines PSL · Sciences Po · Philosophie
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── MÉTHODOLOGIE ─── -->
+<section id="methode">
+  <p class="section-label animate-on-scroll">Ma méthode</p>
+  <h2 class="section-title animate-on-scroll">De la <span style="color:var(--lime)">discovery</span> à l'<span style="color:var(--lime)">adoption</span></h2>
+  <p class="section-desc animate-on-scroll">Une approche produit centrée utilisateur, appliquée aux projets IA & Data. Je ne livre pas un outil, je livre un usage adopté.</p>
+  <div class="approach-grid animate-on-scroll">
+    <div class="approach-step">
+      <div class="step-number">01</div>
+      <h4>Discovery</h4>
+      <p>Ateliers utilisateurs, interviews métier, analyse des irritants et des opportunités data/IA</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="approach-step">
+      <div class="step-number">02</div>
+      <h4>Cadrage</h4>
+      <p>Traduction en problématiques analytiques, priorisation, architecture de la solution</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="approach-step">
+      <div class="step-number">03</div>
+      <h4>Conception</h4>
+      <p>Prototypage, choix technologiques (LLM, RAG, agents), design de l'expérience utilisateur</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="approach-step">
+      <div class="step-number">04</div>
+      <h4>Delivery</h4>
+      <p>Implémentation agile, itérations, tests utilisateurs, monitoring qualité des outputs</p>
+      <span class="arrow">→</span>
+    </div>
+    <div class="approach-step">
+      <div class="step-number">05</div>
+      <h4>Adoption</h4>
+      <p>Formation, accompagnement au changement, diffusion de la culture data, mesure d'impact</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CASE STUDIES ─── -->
+<section id="projets">
+  <p class="section-label animate-on-scroll">Projets clés</p>
+  <h2 class="section-title animate-on-scroll">Des solutions conçues pour être <span style="color:var(--lime)">adoptées</span></h2>
+  <p class="section-desc animate-on-scroll">Chaque projet raconte la même histoire : un vrai problème métier, une solution IA/Data pensée pour les utilisateurs, et des résultats mesurables.</p>
+
+  <div class="cases-grid">
+
+    <!-- CASE 1: DECATHLON -->
+    <div class="case-card animate-on-scroll">
+      <div class="case-visual case-visual-1">
+        <div class="case-mockup">
+          <div class="mockup-browser">
+            <div class="mockup-bar">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-content">
+              <div class="mockup-chat">
+                <div class="chat-bubble chat-user">Quel est le taux de retour sur les chaussures trail en Q3 ?</div>
+                <div class="chat-bubble chat-ai">Le taux de retour chaussures trail Q3 est de 4.2%, en baisse de 0.8pts vs Q2. Les 3 motifs principaux sont...</div>
+                <div class="chat-bubble chat-user">Compare avec la moyenne catégorie</div>
+                <div class="chat-bubble chat-ai">La moyenne catégorie équipement running est à 5.1%. Vous êtes 0.9pts en dessous ✓</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <span class="case-tag tag-blue">PRODUIT IA · RAG · LLM</span>
+        <h3>"Chat with your data"</h3>
+        <p class="case-client">Decathlon France — CX Team · Depuis oct. 2024</p>
+        <p class="case-context">Les équipes Customer Experience passaient des heures à chercher des données dispersées dans plusieurs outils. L'accès à l'information était un frein majeur à la prise de décision.</p>
+        <div class="case-steps">
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Ateliers discovery avec les équipes CX pour identifier les points de friction</p>
+          </div>
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Conception d'une solution conversationnelle (RAG) pour interroger la donnée en langage naturel</p>
+          </div>
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Accompagnement technique et business, diffusion de la culture data</p>
+          </div>
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <h4>↓ friction</h4>
+            <p>Accès data simplifié</p>
+          </div>
+          <div class="case-result">
+            <h4>CX team</h4>
+            <p>Autonomie renforcée</p>
+          </div>
+          <div class="case-result">
+            <h4>Agile</h4>
+            <p>Itérations continues</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 2: MES COURSES EN VRAC -->
+    <div class="case-card animate-on-scroll">
+      <div class="case-visual case-visual-2">
+        <div class="case-mockup">
+          <div class="mockup-browser">
+            <div class="mockup-bar">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-content">
+              <div class="mockup-line accent" style="width:70%; height:12px; margin-bottom:8px"></div>
+              <div class="mockup-line" style="width:90%"></div>
+              <div class="mockup-line" style="width:75%"></div>
+              <div class="mockup-chart">
+                <div class="chart-bar" style="height:20%"></div>
+                <div class="chart-bar" style="height:35%"></div>
+                <div class="chart-bar" style="height:45%"></div>
+                <div class="chart-bar" style="height:65%"></div>
+                <div class="chart-bar" style="height:100%; background:rgba(190,255,90,0.5)"></div>
+              </div>
+              <div class="mockup-line short" style="margin-top:12px"></div>
+              <div class="mockup-line medium"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <span class="case-tag tag-green">ENTREPRENEURIAT · UX · GROWTH</span>
+        <h3>Mes Courses en Vrac</h3>
+        <p class="case-client">Fondatrice & dirigeante · 2016 – 2021</p>
+        <p class="case-context">Création de la 1ère boutique zéro-déchet en France. De l'idée au rachat : une aventure entrepreneuriale complète avec une approche centrée utilisateur à chaque étape.</p>
+        <div class="case-steps">
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>UX Research & market intelligence pour valider le concept et designer le service</p>
+          </div>
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Prototypage et création du site e-commerce, enquêtes clients régulières</p>
+          </div>
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Pilotage de la croissance jusqu'à la revente de la société</p>
+          </div>
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <h4>10K+</h4>
+            <p>Clients</p>
+          </div>
+          <div class="case-result">
+            <h4>+100%</h4>
+            <p>CA en 2020</p>
+          </div>
+          <div class="case-result">
+            <h4>100K</h4>
+            <p>Visiteurs / mois</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CASE 3: SPORT DANS LA VILLE -->
+    <div class="case-card animate-on-scroll">
+      <div class="case-visual case-visual-3">
+        <div class="case-mockup">
+          <div class="mockup-browser">
+            <div class="mockup-bar">
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+              <span class="mockup-dot"></span>
+            </div>
+            <div class="mockup-content" style="gap:14px">
+              <div style="display:flex; gap:10px; align-items:center">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.12)"></div>
+                <div>
+                  <div class="mockup-line" style="width:100px;height:6px;margin-bottom:4px"></div>
+                  <div class="mockup-line" style="width:60px;height:5px;opacity:0.5"></div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(190,255,90,0.2)"></div>
+                <div>
+                  <div class="mockup-line accent" style="width:110px;height:6px;margin-bottom:4px"></div>
+                  <div class="mockup-line" style="width:70px;height:5px;opacity:0.5"></div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.12)"></div>
+                <div>
+                  <div class="mockup-line" style="width:90px;height:6px;margin-bottom:4px"></div>
+                  <div class="mockup-line" style="width:55px;height:5px;opacity:0.5"></div>
+                </div>
+              </div>
+              <div style="display:flex; gap:10px; align-items:center">
+                <div style="width:36px;height:36px;border-radius:8px;background:rgba(255,255,255,0.12)"></div>
+                <div>
+                  <div class="mockup-line" style="width:80px;height:6px;margin-bottom:4px"></div>
+                  <div class="mockup-line" style="width:65px;height:5px;opacity:0.5"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="case-info">
+        <span class="case-tag tag-coral">INCUBATION · STRATÉGIE · GO-TO-MARKET</span>
+        <h3>Programme d'incubation</h3>
+        <p class="case-client">Sport dans la Ville — Grenoble · 2021 – 2024</p>
+        <p class="case-context">Ouverture et pilotage d'un programme d'incubation de startups sur Grenoble. Accompagnement de chaque porteur de projet de l'idéation au marché.</p>
+        <div class="case-steps">
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Création du programme : sourcing, sélection, structuration du parcours</p>
+          </div>
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Accompagnement individuel : stratégie, positionnement, go-to-market</p>
+          </div>
+          <div class="case-step-item">
+            <div class="case-step-icon">→</div>
+            <p>Mise en réseau avec l'écosystème local et les partenaires</p>
+          </div>
+        </div>
+        <div class="case-results">
+          <div class="case-result">
+            <h4>30+</h4>
+            <p>Startups accompagnées</p>
+          </div>
+          <div class="case-result">
+            <h4>2.5 ans</h4>
+            <p>De programme</p>
+          </div>
+          <div class="case-result">
+            <h4>Grenoble</h4>
+            <p>Ancrage territorial</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── COMPÉTENCES ─── -->
+<section id="competences">
+  <p class="section-label animate-on-scroll">Stack & compétences</p>
+  <h2 class="section-title animate-on-scroll">Le bon mix <span style="color:var(--lime)">tech × business</span></h2>
+  <p class="section-desc animate-on-scroll">Un profil hybride qui fait le pont entre les équipes techniques et les décideurs métiers.</p>
+
+  <div class="skills-section animate-on-scroll">
+    <div class="skills-grid">
+      <div class="skill-category">
+        <h4><span class="dot dot-lime"></span> Data & IA</h4>
+        <div class="skill-pills">
+          <span class="skill-pill">Python</span>
+          <span class="skill-pill">SQL</span>
+          <span class="skill-pill">scikit-learn</span>
+          <span class="skill-pill">skrub</span>
+          <span class="skill-pill">NLP</span>
+          <span class="skill-pill">LLM</span>
+          <span class="skill-pill">RAG</span>
+          <span class="skill-pill">Agents IA</span>
+          <span class="skill-pill">LangChain</span>
+          <span class="skill-pill">Architecture agentique</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h4><span class="dot dot-purple"></span> Product & UX</h4>
+        <div class="skill-pills">
+          <span class="skill-pill">Product Management</span>
+          <span class="skill-pill">Discovery</span>
+          <span class="skill-pill">User Research</span>
+          <span class="skill-pill">Ateliers utilisateurs</span>
+          <span class="skill-pill">Prototypage</span>
+          <span class="skill-pill">Méthode Agile</span>
+          <span class="skill-pill">Backlog management</span>
+          <span class="skill-pill">Data Storytelling</span>
+        </div>
+      </div>
+      <div class="skill-category">
+        <h4><span class="dot dot-blue"></span> Business & Stratégie</h4>
+        <div class="skill-pills">
+          <span class="skill-pill">Go-to-market</span>
+          <span class="skill-pill">Market Intelligence</span>
+          <span class="skill-pill">Conduite du changement</span>
+          <span class="skill-pill">Prospective stratégique</span>
+          <span class="skill-pill">Engagement stakeholders</span>
+          <span class="skill-pill">Facilitation</span>
+          <span class="skill-pill">Formation</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CRÉDIBILITÉS ─── -->
+<section>
+  <p class="section-label animate-on-scroll">Crédibilités</p>
+  <h2 class="section-title animate-on-scroll">Au-delà des <span style="color:var(--lime)">missions</span></h2>
+  <div class="cred-grid">
+    <div class="cred-card animate-on-scroll">
+      <div class="emoji">🏛️</div>
+      <h4>1ère femme présidente de la French Tech Grenoble</h4>
+      <p>Animation de l'écosystème tech et innovation de l'agglomération grenobloise. Leadership au service du collectif.</p>
+      <span class="year">Depuis juin 2025</span>
+    </div>
+    <div class="cred-card animate-on-scroll">
+      <div class="emoji">📖</div>
+      <h4>Auteure — "Le zéro-déchet"</h4>
+      <p>Publié aux éditions Cahier Mosaïque. Capacité à vulgariser des sujets complexes et à porter un message auprès d'un large public.</p>
+      <span class="year">Mai 2021</span>
+    </div>
+    <div class="cred-card animate-on-scroll">
+      <div class="emoji">🌐</div>
+      <h4>Knowledge Graph Conference France</h4>
+      <p>Organisation de la diffusion en France de cette conférence internationale IA/Data (Neo4J, GraphRAG).</p>
+      <span class="year">2025</span>
+    </div>
+    <div class="cred-card animate-on-scroll">
+      <div class="emoji">🎓</div>
+      <h4>Formatrice & intervenante</h4>
+      <p>Design, Innovation, UX Research auprès de Canal+, Groupe Dessange, GEM, My Digital School, Campus Numérique.</p>
+      <span class="year">Depuis 2024</span>
+    </div>
+  </div>
+</section>
+
+<!-- ─── ILS M'ONT FAIT CONFIANCE ─── -->
+<section class="trust-section">
+  <p class="section-label animate-on-scroll">Ils m'ont fait confiance</p>
+  <h2 class="section-title animate-on-scroll">Clients & <span style="color:var(--lime)">partenaires</span></h2>
+  <div class="trust-logos animate-on-scroll">
+    <div class="trust-logo">Decathlon</div>
+    <div class="trust-logo">Canal+</div>
+    <div class="trust-logo">Groupe Dessange</div>
+    <div class="trust-logo">Sport dans la Ville</div>
+    <div class="trust-logo">GEM</div>
+    <div class="trust-logo">EuraTechnologies</div>
+    <div class="trust-logo">French Tech</div>
+  </div>
+
+  <div class="testimonials-grid animate-on-scroll">
+    <div class="testimonial">
+      <blockquote>« Ajoutez ici un témoignage d'un collaborateur Decathlon ou d'un client sur votre capacité à rendre la data accessible et à accompagner le changement. »</blockquote>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">?</div>
+        <div>
+          <p class="testimonial-name">Prénom Nom</p>
+          <p class="testimonial-role">Rôle — Decathlon France</p>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial">
+      <blockquote>« Ajoutez ici un témoignage d'un·e entrepreneur·e accompagné·e chez Sport dans la Ville sur la qualité de votre accompagnement stratégique. »</blockquote>
+      <div class="testimonial-author">
+        <div class="testimonial-avatar">?</div>
+        <div>
+          <p class="testimonial-name">Prénom Nom</p>
+          <p class="testimonial-role">Fondateur·ice — Startup accompagnée</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FORMATIONS ─── -->
+<section id="parcours">
+  <p class="section-label animate-on-scroll">Formations</p>
+  <h2 class="section-title animate-on-scroll">Un parcours <span style="color:var(--lime)">pluridisciplinaire</span></h2>
+  <p class="section-desc animate-on-scroll">Sciences Po, Philosophie, Intelligence économique, Mines PSL : chaque formation nourrit ma capacité à penser les problèmes autrement.</p>
+
+  <div class="formation-timeline animate-on-scroll">
+    <div class="formation-item">
+      <p class="f-year">2024 – 2025</p>
+      <h4>Chef de projet IA / Data Analyst (RNCP N.7)</h4>
+      <p class="f-school">Mines PSL</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2025</p>
+      <h4>Gestion de projet Agile</h4>
+      <p class="f-school">Google — Coursera</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2024</p>
+      <h4>Prospective stratégique</h4>
+      <p class="f-school">Futuribles</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2023</p>
+      <h4>UX Design</h4>
+      <p class="f-school">HEC Montréal — edX</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2014</p>
+      <h4>Master 2 Intelligence économique (ISCI)</h4>
+      <p class="f-school">Université de Lille 1</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2008 – 2013</p>
+      <h4>Master Politiques publiques et changement social</h4>
+      <p class="f-school">Sciences Po Grenoble — Spé. développement économique des territoires</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2012</p>
+      <h4>Master en Philosophie</h4>
+      <p class="f-school">Université Bordeaux</p>
+    </div>
+    <div class="formation-item">
+      <p class="f-year">2010</p>
+      <h4>Licence de Sociologie</h4>
+      <p class="f-school">Université Grenoble Alpes</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─── CTA ─── -->
+<section class="cta-section" id="contact">
+  <div class="cta-box animate-on-scroll">
+    <h2>Un projet <span style="color:var(--lime)">IA & Data</span> ?<br>Parlons-en.</h2>
+    <p>Vous cherchez une PM capable de concevoir des solutions IA qui seront réellement adoptées par vos équipes ? Discutons de votre projet.</p>
+    <div class="cta-buttons">
+      <a href="mailto:votre@email.com" class="btn-primary">Me contacter →</a>
+      <a href="https://www.linkedin.com/in/carole-lymer/" class="btn-secondary" target="_blank">LinkedIn</a>
+    </div>
+  </div>
+</section>
+
+<!-- ─── FOOTER ─── -->
+<footer>
+  <p>© 2025 Carole Lymer · PM IA & Data · Grenoble</p>
+  <div class="social-links">
+    <a href="#">LinkedIn</a>
+    <a href="#">Malt</a>
+    <a href="#">GitHub</a>
+  </div>
+</footer>
+
+<!-- ─── SCROLL ANIMATIONS ─── -->
+<script>
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+
+// Smooth nav active state
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll', () => {
+  const scrollY = window.scrollY + 100;
+  sections.forEach(s => {
+    const top = s.offsetTop;
+    const h = s.offsetHeight;
+    const id = s.getAttribute('id');
+    const link = document.querySelector(`nav a[href="#${id}"]`);
+    if (link) {
+      if (scrollY >= top && scrollY < top + h) {
+        link.style.color = 'var(--lime)';
+      } else {
+        link.style.color = '';
+      }
+    }
+  });
+});
+</script>
+
+</body>
+</html>
