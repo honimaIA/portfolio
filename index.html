@@ -230,7 +230,7 @@ nav ul a:hover { color: var(--lime); }
   border: 1px solid rgba(255,255,255,0.08);
   border-radius: 24px;
   padding: 40px 32px;
-  text-align: center;
+  text-align: left;
   position: relative;
   overflow: hidden;
 }
@@ -248,7 +248,7 @@ nav ul a:hover { color: var(--lime); }
   height: 120px;
   border-radius: 50%;
   background: linear-gradient(135deg, var(--lime) 0%, var(--purple) 100%);
-  margin: 0 auto 20px;
+  margin: 0 0 20px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1013,12 +1013,17 @@ footer .social-links a:hover {
 }
 
 .animate-on-scroll {
-  opacity: 0;
-  transform: translateY(30px);
+  opacity: 1;
+  transform: translateY(0);
   transition: all 0.6s ease-out;
 }
 
-.animate-on-scroll.visible {
+.js-loaded .animate-on-scroll {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.js-loaded .animate-on-scroll.visible {
   opacity: 1;
   transform: translateY(0);
 }
@@ -1074,7 +1079,7 @@ footer .social-links a:hover {
     <div class="hero-text">
       <p class="hero-subtitle">Product Manager IA & Data</p>
       <h1>Je transforme les besoins métiers en <span class="accent">solutions IA</span> adoptées par les équipes.</h1>
-      <p>Ex-entrepreneure, aujourd'hui PM IA & Data : je conçois des produits data & IA en alignant technique, besoins métiers et stratégie — de la discovery à l'adoption.</p>
+      <p>Je conçois des produits data & IA en alignant technique, besoins métiers et stratégie — de la discovery à l'adoption.</p>
       <div class="hero-tags">
         <span class="hero-tag highlight">LLM / RAG / Agents IA</span>
         <span class="hero-tag">UX Research</span>
@@ -1105,15 +1110,15 @@ footer .social-links a:hover {
         <div class="profile-links">
           <div class="profile-link">
             <div class="icon">📍</div>
-            Grenoble, France
+            Grenoble, France · Mobile
           </div>
           <div class="profile-link">
             <div class="icon">🏔️</div>
             1ère présidente French Tech Grenoble
           </div>
           <div class="profile-link">
-            <div class="icon">📖</div>
-            Auteure — <em>Le zéro-déchet</em>
+            <div class="icon">🛒</div>
+            Fondatrice e-commerce B2C · 10K+ clients
           </div>
           <div class="profile-link">
             <div class="icon">🎓</div>
@@ -1213,16 +1218,16 @@ footer .social-links a:hover {
         </div>
         <div class="case-results">
           <div class="case-result">
-            <h4>↓ friction</h4>
-            <p>Accès data simplifié</p>
+            <h4>10H</h4>
+            <p>/ semaine gagnées</p>
           </div>
           <div class="case-result">
-            <h4>CX team</h4>
-            <p>Autonomie renforcée</p>
+            <h4>Rapports 2026</h4>
+            <p>Réalisés avec l'outil</p>
           </div>
           <div class="case-result">
-            <h4>Agile</h4>
-            <p>Itérations continues</p>
+            <h4>Phase 2</h4>
+            <p>Industrialisation</p>
           </div>
         </div>
       </div>
@@ -1470,29 +1475,6 @@ footer .social-links a:hover {
     <div class="trust-logo">EuraTechnologies</div>
     <div class="trust-logo">French Tech</div>
   </div>
-
-  <div class="testimonials-grid animate-on-scroll">
-    <div class="testimonial">
-      <blockquote>« Ajoutez ici un témoignage d'un collaborateur Decathlon ou d'un client sur votre capacité à rendre la data accessible et à accompagner le changement. »</blockquote>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">?</div>
-        <div>
-          <p class="testimonial-name">Prénom Nom</p>
-          <p class="testimonial-role">Rôle — Decathlon France</p>
-        </div>
-      </div>
-    </div>
-    <div class="testimonial">
-      <blockquote>« Ajoutez ici un témoignage d'un·e entrepreneur·e accompagné·e chez Sport dans la Ville sur la qualité de votre accompagnement stratégique. »</blockquote>
-      <div class="testimonial-author">
-        <div class="testimonial-avatar">?</div>
-        <div>
-          <p class="testimonial-name">Prénom Nom</p>
-          <p class="testimonial-role">Fondateur·ice — Startup accompagnée</p>
-        </div>
-      </div>
-    </div>
-  </div>
 </section>
 
 <!-- ─── FORMATIONS ─── -->
@@ -1551,8 +1533,8 @@ footer .social-links a:hover {
     <h2>Un projet <span style="color:var(--lime)">IA & Data</span> ?<br>Parlons-en.</h2>
     <p>Vous cherchez une PM capable de concevoir des solutions IA qui seront réellement adoptées par vos équipes ? Discutons de votre projet.</p>
     <div class="cta-buttons">
-      <a href="mailto:votre@email.com" class="btn-primary">Me contacter →</a>
-      <a href="https://www.linkedin.com/in/carole-lymer/" class="btn-secondary" target="_blank">LinkedIn</a>
+      <a href="mailto:lymer.carole@gmail.com" class="btn-primary">Me contacter →</a>
+      <a href="https://www.linkedin.com/in/carolelymer/" class="btn-secondary" target="_blank">LinkedIn</a>
     </div>
   </div>
 </section>
@@ -1568,7 +1550,9 @@ footer .social-links a:hover {
 </footer>
 
 <!-- ─── SCROLL ANIMATIONS ─── -->
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+document.documentElement.classList.add('js-loaded');
+
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (entry.isIntersecting) {
@@ -1589,15 +1573,4 @@ window.addEventListener('scroll', () => {
     const id = s.getAttribute('id');
     const link = document.querySelector(`nav a[href="#${id}"]`);
     if (link) {
-      if (scrollY >= top && scrollY < top + h) {
-        link.style.color = 'var(--lime)';
-      } else {
-        link.style.color = '';
-      }
-    }
-  });
-});
-</script>
-
-</body>
-</html>
+      if (scrollY >= top && scrollY < top 
